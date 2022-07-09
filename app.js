@@ -127,18 +127,22 @@ wrapper.addEventListener("click", (e) => {
     e.target.parentElement.remove();
   }
   if (e.target.classList.contains("convert")) {
-    // console.log(
-    //   e.target.parentElement.parentElement,
-    //   e.target.parentElement.parentElement.innerText,
-    //   e.target.previousElementSibling,
-    //   e.target.nextElementSibling
-    // );
     if (e.target.previousElementSibling) {
       e.target.classList.remove("convert");
       e.target.previousElementSibling.classList.add("convert");
+      let tempStr =
+        e.target.parentElement.parentElement.firstElementChild.innerText;
+      tempStr = String(Math.ceil((Number(tempStr) * 9) / 5 + 32));
+      e.target.parentElement.parentElement.firstElementChild.innerText =
+        tempStr;
     } else if (e.target.nextElementSibling) {
       e.target.classList.remove("convert");
       e.target.nextElementSibling.classList.add("convert");
+      let tempStr =
+        e.target.parentElement.parentElement.firstElementChild.innerText;
+      tempStr = String(Math.ceil(((Number(tempStr) - 32) * 5) / 9));
+      e.target.parentElement.parentElement.firstElementChild.innerText =
+        tempStr;
     }
   }
 });
