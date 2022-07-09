@@ -12,7 +12,7 @@ body {
   font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
 }
 /*top bar styles*/
-#bar {
+.bar {
   background-color: rgb(216, 221, 227);
   padding: 20px;
   display: flex;
@@ -35,14 +35,16 @@ form {
 }
 button {
   padding: 9.5px;
-  background-color: #262626;
-  border: 3px solid #262626;
   border-radius: 5px;
   cursor: pointer;
 }
-button:hover {
+.light-mode-btn {
   background-color: #333;
   border: 3px solid #333;
+}
+.light-mode-btn:hover {
+  background-color: #555;
+  border: 3px solid #555;
 }
 .fa-magnifying-glass {
   color: white;
@@ -111,6 +113,28 @@ input:focus {
   margin-top: 100px;
 }
 
+/*dark mode classes*/
+.dark-mode-body-and-input {
+  background-color: #262626;
+  color: white;
+}
+.dark-mode-bar {
+  background-color: #333;
+}
+.dark-mode-github {
+  color: white;
+}
+.dark-mode-btn {
+  background-color: #eee;
+  border: 3px solid lightgray;
+}
+.dark-mode-btn:hover {
+  background-color: lightgrey;
+  border: 3px solid lightgray;
+}
+.dark-mode-glass {
+  color: black;
+}
 /*media querries*/
 @media only screen and (min-width: 1025px) {
   .wrapper {
