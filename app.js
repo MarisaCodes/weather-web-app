@@ -62,10 +62,11 @@ btn.addEventListener("click", (event) => {
       if (data && !test) {
         icon = data.weather[0].icon;
         iconLink = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
-        let cardStr = `<div class="location">
+        let cardStr = ` <i class="fa-solid fa-xmark"></i>
+                        <div class="location">
           <span class="city"></span> <span class="country"></span>
         </div>
-        <p class="temperature"><sup>&deg;C</sup></p>
+        <p class="temperature"></p>
         <img/>
         <p class="description"></p>`;
         weatherCard = document.createElement("div");
@@ -76,7 +77,7 @@ btn.addEventListener("click", (event) => {
         weatherCard.querySelector(".country").innerText = data.sys.country;
         weatherCard.querySelector(".temperature").innerHTML = `${Math.ceil(
           Number(data.main.temp)
-        )}<sup>&deg;C</sup>`;
+        )}<span><sup>&deg;C</sup></span>`;
         weatherCard.querySelector(".description").innerText =
           data.weather[0].description.toUpperCase();
         weatherCard.querySelector("img").src = iconLink;
@@ -116,5 +117,13 @@ trash.addEventListener("click", () => {
   });
   if (btn.nextElementSibling) {
     btn.nextElementSibling.remove();
+  }
+});
+
+//deleting a weaather card
+
+wrapper.addEventListener("click", (e) => {
+  if (e.target.classList.contains("fa-xmark")) {
+    e.target.parentElement.remove();
   }
 });

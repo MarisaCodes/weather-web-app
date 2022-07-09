@@ -112,7 +112,13 @@ input:focus {
 .description {
   margin-top: 100px;
 }
-
+.fa-xmark{
+  float: right;
+}
+.fa-xmark:hover{
+  cursor: pointer;
+  color: red;
+}
 /*trash can*/
 .fa-trash-can{
   float: right;
