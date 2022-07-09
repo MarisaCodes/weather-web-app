@@ -129,7 +129,13 @@ input:focus {
   color: red;
 }
 
-
+/*fahrenheit and celsius temp styles*/
+.convert{
+  color: #666;
+}
+sup{
+  cursor: pointer;
+}
 /*media querries*/
 @media only screen and (min-width: 1025px) {
   .wrapper {

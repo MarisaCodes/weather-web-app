@@ -77,7 +77,7 @@ btn.addEventListener("click", (event) => {
         weatherCard.querySelector(".country").innerText = data.sys.country;
         weatherCard.querySelector(".temperature").innerHTML = `${Math.ceil(
           Number(data.main.temp)
-        )}<span><sup>&deg;C</sup></span>`;
+        )}<span><sup>&deg;C</sup>|<sup class="convert">&deg;F</sup></span>`;
         weatherCard.querySelector(".description").innerText =
           data.weather[0].description.toUpperCase();
         weatherCard.querySelector("img").src = iconLink;
@@ -125,5 +125,20 @@ trash.addEventListener("click", () => {
 wrapper.addEventListener("click", (e) => {
   if (e.target.classList.contains("fa-xmark")) {
     e.target.parentElement.remove();
+  }
+  if (e.target.classList.contains("convert")) {
+    // console.log(
+    //   e.target.parentElement.parentElement,
+    //   e.target.parentElement.parentElement.innerText,
+    //   e.target.previousElementSibling,
+    //   e.target.nextElementSibling
+    // );
+    if (e.target.previousElementSibling) {
+      e.target.classList.remove("convert");
+      e.target.previousElementSibling.classList.add("convert");
+    } else if (e.target.nextElementSibling) {
+      e.target.classList.remove("convert");
+      e.target.nextElementSibling.classList.add("convert");
+    }
   }
 });
