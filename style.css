@@ -113,6 +113,17 @@ input:focus {
   margin-top: 100px;
 }
 
+/*trash can*/
+.fa-trash-can{
+  float: right;
+  margin: 25px;
+  cursor: pointer;
+}
+.fa-trash-can:hover{
+  color: red;
+}
+
+
 /*media querries*/
 @media only screen and (min-width: 1025px) {
   .wrapper {

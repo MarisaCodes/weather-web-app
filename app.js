@@ -102,3 +102,19 @@ btn.addEventListener("click", (event) => {
 
   btn.previousElementSibling.value = "";
 });
+
+// deleting/clearing the whole page
+
+const trash = document.querySelector(".fa-trash-can");
+
+trash.addEventListener("click", () => {
+  let arrWeatherCards = Array.from(
+    btn.parentElement.nextElementSibling.children
+  );
+  arrWeatherCards.forEach((element) => {
+    element.remove();
+  });
+  if (btn.nextElementSibling) {
+    btn.nextElementSibling.remove();
+  }
+});
