@@ -82,7 +82,7 @@ btn.addEventListener("click", (event) => {
         weatherCard.querySelector("img").src = iconLink;
       }
       if (btn.nextElementSibling) {
-        if (btn.nextElementSibling.innerText == "Invalid input ❌") {
+        if (btn.nextElementSibling.innerText == "Could not fetch data ❌") {
           btn.nextElementSibling.remove();
         }
       }
@@ -95,7 +95,7 @@ btn.addEventListener("click", (event) => {
       setTimeout(() => {
         let warningText = document.createElement("p");
         warningText.classList.add("invalid-input");
-        warningText.innerText = "Invalid input ❌";
+        warningText.innerText = "Could not fetch data ❌";
         btn.parentElement.appendChild(warningText);
       }, 50);
     });
