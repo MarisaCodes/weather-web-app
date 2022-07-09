@@ -113,28 +113,6 @@ input:focus {
   margin-top: 100px;
 }
 
-/*dark mode classes*/
-.dark-mode-body-and-input {
-  background-color: #262626;
-  color: white;
-}
-.dark-mode-bar {
-  background-color: #333;
-}
-.dark-mode-github {
-  color: white;
-}
-.dark-mode-btn {
-  background-color: #eee;
-  border: 3px solid lightgray;
-}
-.dark-mode-btn:hover {
-  background-color: lightgrey;
-  border: 3px solid lightgray;
-}
-.dark-mode-glass {
-  color: black;
-}
 /*media querries*/
 @media only screen and (min-width: 1025px) {
   .wrapper {
