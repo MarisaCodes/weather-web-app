@@ -75,9 +75,12 @@ btn.addEventListener("click", (event) => {
         wrapper.appendChild(weatherCard);
         weatherCard.querySelector(".city").innerText = data.name;
         weatherCard.querySelector(".country").innerText = data.sys.country;
-        weatherCard.querySelector(".temperature").innerHTML = `${Math.ceil(
-          Number(data.main.temp)
-        )}<span><sup>&deg;C</sup>|<sup class="convert">&deg;F</sup></span>`;
+        weatherCard.querySelector(
+          ".temperature"
+        ).innerHTML = `<span></span><span><sup>&deg;C</sup><sup>|</sup><sup class="convert">&deg;F</sup></span>`;
+        weatherCard.querySelector(
+          ".temperature"
+        ).firstElementChild.innerText = `${Math.ceil(data.main.temp)}`;
         weatherCard.querySelector(".description").innerText =
           data.weather[0].description.toUpperCase();
         weatherCard.querySelector("img").src = iconLink;
@@ -128,19 +131,23 @@ wrapper.addEventListener("click", (e) => {
   }
   if (e.target.classList.contains("convert")) {
     if (e.target.previousElementSibling) {
+      if (e.target.previousElementSibling.previousElementSibling) {
+        e.target.classList.remove("convert");
+        e.target.previousElementSibling.previousElementSibling.classList.add(
+          "convert"
+        );
+        let tempStr =
+          e.target.parentElement.parentElement.firstElementChild.innerText;
+        tempStr = String(Math.round((Number(tempStr) * 9) / 5 + 32));
+        e.target.parentElement.parentElement.firstElementChild.innerText =
+          tempStr;
+      }
+    } else if (e.target.nextElementSibling.nextElementSibling) {
       e.target.classList.remove("convert");
-      e.target.previousElementSibling.classList.add("convert");
+      e.target.nextElementSibling.nextElementSibling.classList.add("convert");
       let tempStr =
         e.target.parentElement.parentElement.firstElementChild.innerText;
-      tempStr = String(Math.ceil((Number(tempStr) * 9) / 5 + 32));
-      e.target.parentElement.parentElement.firstElementChild.innerText =
-        tempStr;
-    } else if (e.target.nextElementSibling) {
-      e.target.classList.remove("convert");
-      e.target.nextElementSibling.classList.add("convert");
-      let tempStr =
-        e.target.parentElement.parentElement.firstElementChild.innerText;
-      tempStr = String(Math.ceil(((Number(tempStr) - 32) * 5) / 9));
+      tempStr = String(Math.round(((Number(tempStr) - 32) * 5) / 9));
       e.target.parentElement.parentElement.firstElementChild.innerText =
         tempStr;
     }
