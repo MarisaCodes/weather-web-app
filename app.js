@@ -62,7 +62,7 @@ btn.addEventListener("click", (event) => {
       if (data && !test) {
         icon = data.weather[0].icon;
         iconLink = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
-        let cardStr = ` <i class="fa-solid fa-xmark"></i>
+        let cardStr = ` <i class="fa-solid fa-xmark fa-2x"></i>
                         <div class="location">
           <span class="city"></span> <span class="country"></span>
         </div>
