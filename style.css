@@ -30,7 +30,7 @@ body {
 
 /*form, button, input within wrapper styles*/
 form {
-  margin-top: 50px;
+  margin-top: 100px;
   text-align: center;
 }
 button {
@@ -112,35 +112,73 @@ input:focus {
 .description {
   margin-top: 100px;
 }
-.fa-xmark{
+.fa-xmark {
   float: right;
 }
-.fa-xmark:hover{
+.fa-xmark:hover {
   cursor: pointer;
   color: red;
 }
 /*trash can*/
-.fa-trash-can{
+.fa-trash-can {
   float: right;
   margin: 25px;
   cursor: pointer;
 }
-.fa-trash-can:hover{
+.fa-trash-can:hover {
   color: red;
 }
 
 /*fahrenheit and celsius temp styles*/
-.convert{
+.convert {
   color: #666;
 }
-sup{
+sup {
   cursor: pointer;
 }
 /*media querries*/
-@media only screen and (min-width: 1025px) {
+
+@media only screen and (max-width: 640px) {
+  .app-name {
+    font-size: 20px;
+  }
+  a {
+    font-size: 12;
+  }
+  form {
+    margin-top: 150px;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 301px) {
+  .app-name {
+    font-size: 20px;
+  }
+  a {
+    font-size: 12;
+  }
+  input {
+    width: 175px;
+  }
+  .wrapper {
+    margin-top: 20px;
+  }
+  .weather-card {
+    width: 175px;
+    margin: 20px auto;
+  }
+}
+@media only screen and (min-width: 978px) {
   .wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+  }
+  .weather-card {
+    margin: 30px 50px;
+  }
+  form {
+    text-align: left;
+    margin-left: 100px;
   }
 }
