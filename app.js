@@ -7,12 +7,6 @@
 // weather icons link (example link for icon:11d)
 //https://openweathermap.org/img/wn/11d@2x.png
 let test = false; //test variable for whether a country name is repeated
-let city = "";
-// resource for fetch
-let resource =
-  "https://api.openweathermap.org/data/2.5/weather?q=" +
-  city +
-  "&appid=d3ea8ae7f71ead52761191ffe7ffc7e8";
 
 // weather icon
 let icon = "";
@@ -26,14 +20,18 @@ const btn = document.querySelector("button");
 
 btn.addEventListener("click", (event) => {
   event.preventDefault(); //prevent page reload
-  city = btn.previousElementSibling.value;
-  resource =
+  let city = btn.previousElementSibling.value;
+  let resource =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&appid=d3ea8ae7f71ead52761191ffe7ffc7e8&units=metric"; //adding user input
 
   fetch(resource)
     .then((response) => {
+      if (!response.ok) {
+        // throwing error in case server is reached but failed to fetch resource
+        throw Error("could not fetch requested resource");
+      }
       return response.json(); //this returns a promise object, can use .then() method on it
     })
     .then((data) => {
@@ -100,7 +98,7 @@ btn.addEventListener("click", (event) => {
     })
     .catch((err) => {
       // console.logging the error for my own tests, I am not sure if it is necessary
-      console.log("could not fetch data", err);
+      console.log(err.message);
 
       //if the button has a sibling element next to it (which will always be an error message) remove it...
       if (btn.nextElementSibling) {
