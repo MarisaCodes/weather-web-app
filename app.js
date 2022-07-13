@@ -8,9 +8,6 @@
 //https://openweathermap.org/img/wn/11d@2x.png
 let test = false; //test variable for whether a country name is repeated
 
-// weather icon
-let icon = "";
-let iconLink = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
 // div with class wrapper
 const wrapper = document.querySelector(".wrapper");
 // the search icon button
@@ -62,8 +59,8 @@ btn.addEventListener("click", (event) => {
       }
       if (data && !test) {
         //getting weather icon
-        icon = data.weather[0].icon;
-        iconLink = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
+        let icon = data.weather[0].icon;
+        let iconLink = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
 
         //this is the string for the contents of a weather card
 
