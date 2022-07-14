@@ -132,10 +132,9 @@ input:focus {
 /*fahrenheit and celsius temp styles*/
 .convert {
   color: #666;
-}
-sup {
   cursor: pointer;
 }
+
 /*media querries*/
 
 @media only screen and (max-width: 640px) {
