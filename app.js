@@ -6,14 +6,25 @@ const wrapper = document.querySelector(".wrapper");
 const btn = document.querySelector("button");
 
 // // functions
+// this function adds a loading message
+
+const loadingMessage = () => {
+  let loading = document.createElement("p");
+  loading.classList.add("loading");
+  loading.innerText = "Loading...";
+  btn.parentElement.appendChild(loading);
+};
 
 // this function removes all error messages when the user searches something
-const removeAllErrors = () => {
+const removeAllMessages = () => {
   let form = btn.parentElement;
   let arrForm = Array.from(form.children);
   arrForm.forEach((element) => {
-    if (element.classList.contains("invalid-input")) {
-      element.remove(); // cleaning all error messages (NOT just the message: invalid input X) after user searches data
+    if (
+      element.classList.contains("invalid-input") ||
+      element.classList.contains("loading")
+    ) {
+      element.remove(); // cleaning all loading and error messages after user searches data
     }
   });
 };
@@ -34,12 +45,10 @@ const getWeatherIcon = (icon = null) => {
 
 // this function is for the error message
 const errorMessage = () => {
-  setTimeout(() => {
-    let warningText = document.createElement("p");
-    warningText.classList.add("invalid-input");
-    warningText.innerText = "Could not fetch data ❌";
-    btn.parentElement.appendChild(warningText);
-  }, 50);
+  let warningText = document.createElement("p");
+  warningText.classList.add("invalid-input");
+  warningText.innerText = "Could not fetch data ❌";
+  btn.parentElement.appendChild(warningText);
 };
 
 // this function is for checking if a card already exists in the search results
@@ -52,12 +61,11 @@ const checkExistingCards = (cityName = null) => {
     //looping through existing weather cards to "test" whether a city has already been searched for
 
     if (arrWeatherCards[i].querySelector(".city").innerText == cityName) {
-      setTimeout(() => {
-        let duplicateWarn = document.createElement("p");
-        duplicateWarn.classList.add("invalid-input");
-        duplicateWarn.innerText = `You already have the weather for ${cityName}!`;
-        btn.parentElement.appendChild(duplicateWarn);
-      }, 50);
+      removeAllMessages();
+      let duplicateWarn = document.createElement("p");
+      duplicateWarn.classList.add("invalid-input");
+      duplicateWarn.innerText = `You already have the weather for ${cityName}!`;
+      btn.parentElement.appendChild(duplicateWarn);
       test = true; // test is changed to true if city already exists in cards
       break;
     } else {
@@ -66,7 +74,7 @@ const checkExistingCards = (cityName = null) => {
   }
 };
 
-// function for generating the weather card
+// this function for generating the weather card
 
 const getWeatherCard = (
   iconUrl,
@@ -78,9 +86,7 @@ const getWeatherCard = (
   //getting weather icon
   let iconLink = getWeatherIcon(iconUrl);
 
-  //this is the string for the contents of a weather card
-
-  let cardStr = ` <i class="fa-solid fa-xmark fa-2x"></i>
+  let cardStr = ` <i class="fa-solid fa-xmark fa-2x"></i>  
                           <div class="location">
                               <span class="city"></span> 
                               <span class="country"></span>
@@ -108,17 +114,27 @@ const getWeatherCard = (
     weatherDescription.toUpperCase();
   weatherCard.querySelector("img").src = iconLink;
 };
-
+// this function is for trashing all weather cards
+const trashWeatherCards = () => {
+  let arrWeatherCards = Array.from(
+    btn.parentElement.nextElementSibling.children
+  );
+  for (let i = 0; i < arrWeatherCards.length; i++) {
+    arrWeatherCards[i].remove();
+  }
+};
 // when submitting user input, I am using button click and it happens to work well
 
 btn.addEventListener("click", (event) => {
   event.preventDefault(); //prevent page reload
-  removeAllErrors();
+  removeAllMessages();
   let resource = getResource(btn.previousElementSibling.value); //getting url from using getResource on user's input
+  loadingMessage(); // adding a loading message
 
   fetch(resource)
     .then((response) => {
       if (!response.ok) {
+        removeAllMessages();
         // throwing error in case server is reached but failed to fetch resource
         throw Error("could not fetch requested resource");
       }
@@ -136,6 +152,7 @@ btn.addEventListener("click", (event) => {
           data.main.temp,
           data.weather[0].description
         );
+        removeAllMessages();
       }
     })
     .catch((err) => {
@@ -162,15 +179,14 @@ const trash = document.querySelector(".fa-trash-can");
 
 trash.addEventListener("click", () => {
   test = false;
-  let arrWeatherCards = Array.from(
-    btn.parentElement.nextElementSibling.children
-  );
-  arrWeatherCards.forEach((element) => {
-    element.remove();
+  trashWeatherCards();
+  let form = btn.parentElement;
+  let arrForm = Array.from(form.children);
+  arrForm.forEach((element) => {
+    if (element.classList.contains("invalid-input")) {
+      element.remove(); // cleaning only error messages after user searches data
+    }
   });
-  if (btn.nextElementSibling) {
-    btn.nextElementSibling.remove();
-  }
 });
 
 //deleting an individual weaather card
