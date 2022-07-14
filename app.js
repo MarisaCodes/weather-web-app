@@ -223,6 +223,7 @@ wrapper.addEventListener("click", (e) => {
   }
 });
 
+// changing between dark mode and light mode
 const brightnessIcon = document.querySelector(".brightness-icon");
 const colorVars = document.querySelector(":root");
 brightnessIcon.addEventListener("click", () => {
