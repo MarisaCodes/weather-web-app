@@ -16,21 +16,34 @@ body {
 /* variables */
 :root {
   --background: #010409;
+  --country-background: #010409;
   --nav-bar-color: #161b22;
   --cards: #0d1117;
-  --dark-mode-text-color: #f0f0f0;
   --card-border: #30363d;
   --placeholder-color: #5d646e;
   --warning-text: #a2a9b1;
+  --card-text-color: #a2a9b1;
+  --input-text-color: #a2a9b1;
+  --loading: white;
 }
 /*top bar styles*/
 .bar {
   background-color: var(--nav-bar-color);
-  color: var(--dark-mode-text-color);
+  color: white;
   padding: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.bar > div {
+  display: flex;
+  align-items: center;
+}
+.bar > div svg {
+  background-color: var(--nav-bar-color);
+  fill: white;
+  cursor: pointer;
+  width: 30px;
 }
 .app-name {
   margin: 0 20px;
@@ -42,13 +55,23 @@ body {
 }
 /* icon color */
 .fa-github,
-.fa-magnifying-glass,
-.fa-trash-can {
+.fa-magnifying-glass {
   cursor: pointer;
-  color: var(--warning-text);
+  color: var(--card-text-color);
 }
 .fa-magnifying-glass {
   margin: 5px;
+  padding-top: 1.5px;
+}
+/*trash can*/
+.fa-trash-can {
+  float: right;
+  margin: 25px;
+  cursor: pointer;
+  color: #333;
+}
+.fa-trash-can:hover {
+  color: red;
 }
 /*form, button, input within wrapper styles*/
 form {
@@ -71,7 +94,7 @@ button {
 
 input {
   background: var(--background);
-  color: var(--warning-text);
+  color: var(--input-text-color);
   margin-right: 10px;
   border: 1px solid var(--card-border);
   border-radius: 5px;
@@ -93,7 +116,7 @@ input:focus {
   margin-top: 10px;
 }
 .loading {
-  color: white;
+  color: var(--loading);
 }
 /*wrapper styles*/
 .wrapper {
@@ -104,7 +127,7 @@ input:focus {
 
 /*weather card div styles within wrapper div*/
 .weather-card {
-  color: var(--warning-text);
+  color: var(--card-text-color);
   background: var(--cards);
   border: 1px solid var(--card-border);
   border-radius: 5px;
@@ -120,8 +143,7 @@ input:focus {
 }
 .country {
   padding: 1px 5px;
-  background-color: var(--background);
-  color: var(--warning-text);
+  background-color: var(--country-background);
   font-size: 13px;
   border-radius: 10px;
   align-self: flex-start;
@@ -142,15 +164,6 @@ input:focus {
 }
 .fa-xmark:hover {
   cursor: pointer;
-  color: red;
-}
-/*trash can*/
-.fa-trash-can {
-  float: right;
-  margin: 25px;
-  cursor: pointer;
-}
-.fa-trash-can:hover {
   color: red;
 }
 

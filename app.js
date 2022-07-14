@@ -222,3 +222,37 @@ wrapper.addEventListener("click", (e) => {
     }
   }
 });
+
+const brightnessIcon = document.querySelector(".brightness-icon");
+const colorVars = document.querySelector(":root");
+brightnessIcon.addEventListener("click", () => {
+  if (
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--background")
+      .trim() == "#010409"
+  ) {
+    brightnessIcon.style.setProperty("fill", "yellow");
+    colorVars.style.setProperty("--background", "white");
+    colorVars.style.setProperty("--country-background", "#F1D00A");
+    colorVars.style.setProperty("--nav-bar-color", "#06283D");
+    colorVars.style.setProperty("--cards", "#3E497A");
+    colorVars.style.setProperty("--placeholder-color", "#47B5FF");
+    colorVars.style.setProperty("--card-border", "#00B4D8");
+    colorVars.style.setProperty("--card-text-color", "white");
+    colorVars.style.setProperty("--input-text-color", "black");
+    colorVars.style.setProperty("--warning-text", "#F1D00A");
+    colorVars.style.setProperty("--loading", "black");
+  } else {
+    brightnessIcon.style.setProperty("fill", "white");
+    colorVars.style.setProperty("--background", "#010409");
+    colorVars.style.setProperty("--country-background", "#010409");
+    colorVars.style.setProperty("--nav-bar-color", "#161b22");
+    colorVars.style.setProperty("--cards", "#0d1117");
+    colorVars.style.setProperty("--placeholder-color", "#5d646e");
+    colorVars.style.setProperty("--card-border", "#30363d");
+    colorVars.style.setProperty("--card-text-color", "#a2a9b1");
+    colorVars.style.setProperty("--input-text-color", "#a2a9b1");
+    colorVars.style.setProperty("--warning-text", "#a2a9b1");
+    colorVars.style.setProperty("--loading", "white");
+  }
+});
