@@ -8,81 +8,72 @@ const btn = document.querySelector("button");
 // // functions
 // this function adds a loading message
 
-const loadingMessage = () => {
-  let loading = document.createElement("p");
-  loading.classList.add("loading");
-  loading.innerText = "Loading...";
-  btn.parentElement.appendChild(loading);
-};
+function messageFunc(str = null, className = null) {
+  let message = document.createElement("p");
+  message.classList.add(className);
+  message.innerText = str;
+  btn.parentElement.appendChild(message);
+}
 
 // this function removes all error messages when the user searches something
-const removeAllMessages = () => {
+function removeMessagesWithClassName(className1 = null, className2 = null) {
   let form = btn.parentElement;
   let arrForm = Array.from(form.children);
   arrForm.forEach((element) => {
     if (
-      element.classList.contains("invalid-input") ||
-      element.classList.contains("loading")
+      element.classList.contains(className1) ||
+      element.classList.contains(className2)
     ) {
       element.remove(); // cleaning all loading and error messages after user searches data
     }
   });
-};
+}
 // this function is for getting the city name input and putting it into the url so data could be fetched
-const getResource = (city = null) => {
+function getResource(city = null) {
   return (
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&appid=d3ea8ae7f71ead52761191ffe7ffc7e8&units=metric"
   );
-};
+}
 
 // this function is for getting the icon src
 
-const getWeatherIcon = (icon = null) => {
+function getWeatherIcon(icon = null) {
   return "https://openweathermap.org/img/wn/" + icon + "@2x.png";
-};
-
-// this function is for the error message
-const errorMessage = () => {
-  let warningText = document.createElement("p");
-  warningText.classList.add("invalid-input");
-  warningText.innerText = "Could not fetch data ❌";
-  btn.parentElement.appendChild(warningText);
-};
+}
 
 // this function is for checking if a card already exists in the search results
 
-const checkExistingCards = (cityName = null) => {
+function checkExistingCards(cityName = null) {
   let arrWeatherCards = Array.from(
     btn.parentElement.nextElementSibling.children
   );
   for (let i = 0; i < arrWeatherCards.length; i++) {
     //looping through existing weather cards to "test" whether a city has already been searched for
-
     if (arrWeatherCards[i].querySelector(".city").innerText == cityName) {
-      removeAllMessages();
-      let duplicateWarn = document.createElement("p");
-      duplicateWarn.classList.add("invalid-input");
-      duplicateWarn.innerText = `You already have the weather for ${cityName}!`;
-      btn.parentElement.appendChild(duplicateWarn);
+      removeMessagesWithClassName("invalid-input", "loading");
+      messageFunc(
+        `You already have the weather for ${cityName}!`,
+        "invalid-input"
+      );
       test = true; // test is changed to true if city already exists in cards
       break;
     } else {
       test = false;
     }
   }
-};
+}
 
 // this function for generating the weather card
 
-const getWeatherCard = (
+function getWeatherCard(
   iconUrl,
   cityName,
   countryInitials,
   temperature,
   weatherDescription
-) => {
+) {
   //getting weather icon
   let iconLink = getWeatherIcon(iconUrl);
 
@@ -95,7 +86,7 @@ const getWeatherCard = (
                           <img/>
                           <p class="description"></p>`;
 
-  weatherCard = document.createElement("div");
+  let weatherCard = document.createElement("div");
   weatherCard.className = "weather-card";
   weatherCard.innerHTML = cardStr;
   wrapper.appendChild(weatherCard);
@@ -113,28 +104,29 @@ const getWeatherCard = (
   weatherCard.querySelector(".description").innerText =
     weatherDescription.toUpperCase();
   weatherCard.querySelector("img").src = iconLink;
-};
+}
 // this function is for trashing all weather cards
-const trashWeatherCards = () => {
+function trashWeatherCards() {
   let arrWeatherCards = Array.from(
     btn.parentElement.nextElementSibling.children
   );
   for (let i = 0; i < arrWeatherCards.length; i++) {
     arrWeatherCards[i].remove();
   }
-};
-// when submitting user input, I am using button click and it happens to work well
+}
+// button click event...
+//when submitting user input, I am using button click and it happens to work well
 
 btn.addEventListener("click", (event) => {
   event.preventDefault(); //prevent page reload
-  removeAllMessages();
+  removeMessagesWithClassName("invalid-input", "loading");
   let resource = getResource(btn.previousElementSibling.value); //getting url from using getResource on user's input
-  loadingMessage(); // adding a loading message
+  messageFunc("Loading...", "loading"); // adding a loading message
 
   fetch(resource)
     .then((response) => {
       if (!response.ok) {
-        removeAllMessages();
+        removeMessagesWithClassName("invalid-input", "loading");
         // throwing error in case server is reached but failed to fetch resource
         throw Error("could not fetch requested resource");
       }
@@ -152,7 +144,7 @@ btn.addEventListener("click", (event) => {
           data.main.temp,
           data.weather[0].description
         );
-        removeAllMessages();
+        removeMessagesWithClassName("invalid-input", "loading");
       }
     })
     .catch((err) => {
@@ -165,7 +157,7 @@ btn.addEventListener("click", (event) => {
       }
 
       // ...then add this specific error message
-      errorMessage();
+      messageFunc("Could not fetch data ❌", "invalid-input");
     });
 
   //finally reset the input/search box so that it has nothing in it
@@ -180,13 +172,7 @@ const trash = document.querySelector(".fa-trash-can");
 trash.addEventListener("click", () => {
   test = false;
   trashWeatherCards();
-  let form = btn.parentElement;
-  let arrForm = Array.from(form.children);
-  arrForm.forEach((element) => {
-    if (element.classList.contains("invalid-input")) {
-      element.remove(); // cleaning only error messages after user searches data
-    }
-  });
+  removeMessagesWithClassName("invalid-input");
 });
 
 //deleting an individual weaather card

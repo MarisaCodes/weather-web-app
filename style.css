@@ -30,28 +30,37 @@ body {
 .bar {
   background-color: var(--nav-bar-color);
   color: white;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .bar > div {
   display: flex;
+  justify-content: flex-start;
   align-items: center;
 }
 .bar > div svg {
   background-color: var(--nav-bar-color);
   fill: white;
   cursor: pointer;
-  width: 30px;
+  width: 40px;
 }
 .app-name {
-  margin: 0 20px;
+  margin: 0 10px;
   font-size: 40px;
+  width: max-content;
+}
+body > div.bar > div:nth-child(2) {
+  font-size: 20px;
+  margin-right: 5px;
 }
 .fa-github:hover {
   color: #eec124;
   cursor: pointer;
+}
+.fa-github {
+  margin-left: 3px;
 }
 /* icon color */
 .fa-github,
@@ -61,6 +70,7 @@ body {
 }
 .fa-magnifying-glass {
   margin: 5px;
+  padding-bottom: 1.5px;
   padding-top: 1.5px;
 }
 /*trash can*/
@@ -174,35 +184,47 @@ input:focus {
 }
 
 /*media querries*/
-
+@media only screen and (max-width: 520px) {
+  .bar {
+    flex-direction: column;
+  }
+}
 @media only screen and (max-width: 640px) {
+  .bar > div svg {
+    width: 30px;
+  }
   .app-name {
     font-size: 20px;
-  }
-  a {
-    font-size: 12;
   }
   form {
     margin-top: 150px;
     text-align: center;
   }
 }
-@media only screen and (max-width: 301px) {
-  .app-name {
-    font-size: 20px;
+@media only screen and (max-width: 420px) {
+  .brightness-icon {
+    width: 15px;
   }
-  a {
-    font-size: 12;
+  .app-name {
+    font-size: 19px;
+  }
+  body > div.bar > div:nth-child(2) {
+    font-size: 14px;
   }
   input {
     width: 175px;
+    font-size: 15px;
   }
   .wrapper {
     margin-top: 20px;
   }
   .weather-card {
-    width: 175px;
+    width: 200px;
     margin: 20px auto;
+    font-size: 15px;
+  }
+  ::placeholder {
+    font-size: 15px;
   }
 }
 @media only screen and (min-width: 978px) {
